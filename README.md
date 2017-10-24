@@ -8,7 +8,7 @@ Browsers can open only a limited amount of connections so when you urgently need
 
 ```javascript
 import { XHRConnection, ConnectionEvent } from "@dcos/connections";
-import ConnectionManager from "connection-manager";
+import ConnectionManager from "@dcos/connection-manager";
 
 const connection = new XHRConnection("http://127.0.0.1");
 connection.on(ConnectionEvent.CLOSE, function(event) {

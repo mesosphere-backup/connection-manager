@@ -1,8 +1,12 @@
-import { AbstractConnection, ConnectionEvent } from "connections";
+import { AbstractConnection, ConnectionEvent } from "@dcos/connections";
 import ConnectionManagerClass from "../ConnectionManager.js";
 
-jest.mock("connections/src/ConnectionEvent");
-jest.mock("connections/src/AbstractConnection");
+jest.mock("@dcos/connections", () => {
+  return {
+    AbstractConnection: require("../__mocks__/AbstractConnection").default,
+    ConnectionEvent: require("../__mocks__/ConnectionEvent").default
+  };
+});
 
 describe("ConnectionManager", () => {
   let ConnectionManager = null;

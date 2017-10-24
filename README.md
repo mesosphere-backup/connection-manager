@@ -1,4 +1,4 @@
-# Connection Manager
+# Connection Manager [![Build Status](https://travis-ci.org/dcos-labs/connection-manager.svg?branch=master)](https://travis-ci.org/dcos-labs/connection-manager)
 
 This package allows to manage connections inside the browser and order them in a queue by priority.
 
@@ -7,7 +7,7 @@ Browsers can open only a limited amount of connections so when you urgently need
 ## Usage
 
 ```javascript
-import { XHRConnection, ConnectionEvent } from "connections";
+import { XHRConnection, ConnectionEvent } from "@dcos/connections";
 import ConnectionManager from "connection-manager";
 
 const connection = new XHRConnection("http://127.0.0.1");

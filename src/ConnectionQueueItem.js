@@ -1,4 +1,4 @@
-import { AbstractConnection } from "connections";
+import { AbstractConnection } from "@dcos/connections";
 
 export const DEFAULT_PRIORITY = 0;
 export const MINIMUM_PRIORITY = DEFAULT_PRIORITY;

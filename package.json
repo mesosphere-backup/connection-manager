@@ -1,20 +1,29 @@
 {
-  "name": "connection-manager",
-  "main": "index.js",
+  "name": "@dcos/connection-manager",
+  "main": "./dist/index.js",
+  "module": "./src/index.js",
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "repository": "https://github.com/dcos/dcos-ui/tree/master/packages/connection-manager",
+  "repository": "https://github.com/dcos-labs/connection-manager",
   "scripts": {
-    "test": "jest"
+    "test": "jest src",
+    "build": "babel src --out-dir dist",
+    "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "connections": "0.1.0"
-  },
-  "peerDependencies": {
-    "immutable": "3.8.1"
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
   },
   "devDependencies": {
-    "jest": "19.0.2",
-    "jest-cli": "16.0.2"
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1"
+  },
+  "dependencies": {
+    "@dcos/connections": "^0.1.0",
+    "immutable": "^3.8.2"
   }
 }

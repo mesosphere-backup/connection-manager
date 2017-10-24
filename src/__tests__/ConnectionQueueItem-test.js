@@ -1,8 +1,8 @@
-import { AbstractConnection } from "connections";
+import { AbstractConnection } from "@dcos/connections";
 
 import ConnectionQueueItem, { MINIMUM_PRIORITY } from "../ConnectionQueueItem";
 
-jest.mock("connections/src/AbstractConnection");
+jest.mock("@dcos/connections");
 
 describe("ConnectionQueueItem", () => {
   describe("#initialization", () => {

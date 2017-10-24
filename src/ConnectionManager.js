@@ -1,4 +1,4 @@
-import { AbstractConnection, ConnectionEvent } from "connections";
+import { AbstractConnection, ConnectionEvent } from "@dcos/connections";
 import ConnectionQueue from "./ConnectionQueue.js";
 
 /**

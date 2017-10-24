@@ -1,8 +1,8 @@
-import { AbstractConnection } from "connections";
+import { AbstractConnection } from "@dcos/connections";
 import ConnectionQueue from "../ConnectionQueue.js";
 import ConnectionQueueItem from "../ConnectionQueueItem.js";
 
-jest.mock("connections/src/AbstractConnection");
+jest.mock("@dcos/connections");
 
 describe("ConnectionQueue", () => {
   let connection1 = null;

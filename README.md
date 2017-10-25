@@ -1,5 +1,12 @@
 # Connection Manager [![Build Status](https://travis-ci.org/dcos-labs/connection-manager.svg?branch=master)](https://travis-ci.org/dcos-labs/connection-manager)
 
+---
+👩‍🔬  Please be aware that this package is still experimental —
+changes to the interface  and underlying implementation are likely,
+and future development or maintenance is not guaranteed.
+
+---
+
 This package allows to manage connections inside the browser and order them in a queue by priority.
 
 Browsers can open only a limited amount of connections so when you urgently need one there may not be a slot. This package solves the issue by providing a manager that enqueues all requested connections and priorities them accordingly.

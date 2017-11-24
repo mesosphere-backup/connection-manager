@@ -13,7 +13,7 @@ export default class ConnectionManager {
    *
    * @param {int} maxConnections – max open connections
    */
-  constructor(maxConnections = 1) {
+  constructor(maxConnections = 6) {
     /**
      * Private Context
      *

@@ -1,5 +1,6 @@
 import { AbstractConnection, ConnectionEvent } from "@dcos/connections";
-import ConnectionQueue from "./ConnectionQueue.js";
+import ConnectionQueue from "./ConnectionQueue";
+import ConnectionQueueItem from "./ConnectionQueueItem";
 
 /**
  * The Connection Manager which is responsible for
@@ -54,18 +55,18 @@ export default class ConnectionManager {
           return;
         }
 
-        const connection = context.waitingConnections.first();
+        const item = context.waitingConnections.first();
 
-        if (connection.state === AbstractConnection.INIT) {
-          connection.open(connection.url);
+        if (item.connection.state === AbstractConnection.INIT) {
+          item.connection.open();
         }
 
-        if (connection.state === AbstractConnection.OPEN) {
-          context.openConnections = context.openConnections.enqueue(connection);
+        if (item.connection.state === AbstractConnection.OPEN) {
+          context.openConnections = context.openConnections.enqueue(item);
         }
 
-        // after added to open list, we can remove it from waiting
-        context.waitingConnections = context.waitingConnections.shift();
+        context.waitingConnections = context.waitingConnections.shift(item);
+
         context.next();
       },
 
@@ -107,21 +108,20 @@ export default class ConnectionManager {
    * @this ConnectionManager~Context
    * @param {AbstractConnection} connection – connection to queue
    * @param {Integer} [priority] – optional change of priority
+   * @return {bool} - true if the connection was added, false if not.
    */
   enqueue(connection, priority) {
     if (connection.state === AbstractConnection.CLOSED) {
-      return;
+      return false;
     }
+    const item = new ConnectionQueueItem(connection, priority);
 
     if (connection.state === AbstractConnection.INIT) {
-      this.waitingConnections = this.waitingConnections.enqueue(
-        connection,
-        priority
-      );
+      this.waitingConnections = this.waitingConnections.enqueue(item);
     }
 
     if (connection.state === AbstractConnection.OPEN) {
-      this.openConnections = this.openConnections.enqueue(connection);
+      this.openConnections = this.openConnections.enqueue(item);
     }
 
     connection.addListener(ConnectionEvent.ABORT, this.handleConnectionAbort);
@@ -133,7 +133,10 @@ export default class ConnectionManager {
 
     connection.addListener(ConnectionEvent.ERROR, this.handleConnectionError);
 
+    // important: when it returns true here, the connection 
+    // might already been started in the next()-loop.
     this.next();
+    return true;
   }
 
   /**
@@ -143,8 +146,10 @@ export default class ConnectionManager {
    * @param {AbstractConnection} connection – connection to dequeue
    */
   dequeue(connection) {
-    this.waitingConnections = this.waitingConnections.dequeue(connection);
-    this.openConnections = this.openConnections.dequeue(connection);
+    const item = new ConnectionQueueItem(connection);
+
+    this.waitingConnections = this.waitingConnections.dequeue(item);
+    this.openConnections = this.openConnections.dequeue(item);
 
     connection.removeListener(
       ConnectionEvent.ABORT,

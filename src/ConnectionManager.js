@@ -55,17 +55,28 @@ export default class ConnectionManager {
           return;
         }
 
+<<<<<<< HEAD
         const item = context.waitingList.first();
+=======
+        const item = context.waitingConnections.first();
+>>>>>>> refactor(ConnectionQueue): make queue only deal with queueItems
 
         if (item.connection.state === AbstractConnection.INIT) {
           item.connection.open();
         }
 
         if (item.connection.state === AbstractConnection.OPEN) {
+<<<<<<< HEAD
           context.openList = context.openList.enqueue(item);
         }
 
         context.waitingList = context.waitingList.shift(item);
+=======
+          context.openConnections = context.openConnections.enqueue(item);
+        }
+
+        context.waitingConnections = context.waitingConnections.shift(item);
+>>>>>>> refactor(ConnectionQueue): make queue only deal with queueItems
 
         context.next();
       },
@@ -148,8 +159,13 @@ export default class ConnectionManager {
   dequeue(connection) {
     const item = new ConnectionQueueItem(connection);
 
+<<<<<<< HEAD
     this.waitingList = this.waitingList.dequeue(item);
     this.openList = this.openList.dequeue(item);
+=======
+    this.waitingConnections = this.waitingConnections.dequeue(item);
+    this.openConnections = this.openConnections.dequeue(item);
+>>>>>>> refactor(ConnectionQueue): make queue only deal with queueItems
 
     connection.removeListener(
       ConnectionEvent.ABORT,

@@ -42,29 +42,30 @@ export default class ConnectionQueue {
    * @return {AbstractConnection} - first connection
    */
   first() {
-    if (this.connections.first() === undefined) {
-      return undefined;
-    }
-
-    return this.connections.first().connection;
+    return this.connections.first();
+  }
+  /**
+   * returns the last connection
+   * @return {AbstractConnection} - last connection
+   */
+  last() {
+    return this.connections.last();
   }
 
-  /**
-   * returns a new queue without the first connection
-   * @return {ConnectionQueue} – ConnectionQueue without first connection
-   */
   shift() {
     return new ConnectionQueue(this.connections.shift());
   }
 
+  pop() {
+    return new ConnectionQueue(this.connections.pop());
+  }
+
   /**
    * Adds given connection to queue
-   * @param {AbstractConnection} connection – Connection to be added to queue
-   * @param {Integer} [priority] – priority of connection
+   * @param {ConnectionQueueItem} item – ConnectionQueueItem wich contains connection to be added to queue
    * @return {ConnectionQueue} - ConnectionQueue containing the added connection
    */
-  enqueue(connection, priority) {
-    const item = new ConnectionQueueItem(connection, priority);
+  enqueue(item) {
     const index = this.connections.findIndex(listItem => listItem.equals(item));
     let connections = null;
 
@@ -94,17 +95,13 @@ export default class ConnectionQueue {
    * @param {AbstractConnection} connection – connection to be deleted
    * @return {ConnectionQueue} - ConnectionQueue without the resp. connection
    */
-  dequeue(connection) {
-    const item = new ConnectionQueueItem(connection);
-
+  dequeue(item) {
     return new ConnectionQueue(
       this.connections.filter(listItem => !listItem.equals(item))
     );
   }
 
-  includes(connection) {
-    const item = new ConnectionQueueItem(connection);
-
+  includes(item) {
     return this.connections.some(listItem => listItem.equals(item));
   }
 }

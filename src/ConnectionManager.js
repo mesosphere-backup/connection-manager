@@ -29,18 +29,18 @@ export default class ConnectionManager {
       instance: this,
 
       /**
-       * @property {ConnectionQueue} waitingConnections
+       * @property {ConnectionQueue} waitingList
        * @description List of waiting connections ordered by priority
-       * @name ConnectionManager~Context#waitingConnections
+       * @name ConnectionManager~Context#waitingList
        */
-      waitingConnections: new ConnectionQueue(),
+      waitingList: new ConnectionQueue(),
 
       /**
-       * @property {List} openConnections
+       * @property {List} openList
        * @description List of open connections
        * @name ConnectionManager~Context#next
        */
-      openConnections: new ConnectionQueue(),
+      openList: new ConnectionQueue(),
 
       /**
        * @property {function} next
@@ -49,23 +49,23 @@ export default class ConnectionManager {
        */
       next() {
         if (
-          context.openConnections.size >= maxConnections ||
-          context.waitingConnections.size === 0
+          context.openList.size >= maxConnections ||
+          context.waitingList.size === 0
         ) {
           return;
         }
 
-        const item = context.waitingConnections.first();
+        const item = context.waitingList.first();
 
         if (item.connection.state === AbstractConnection.INIT) {
           item.connection.open();
         }
 
         if (item.connection.state === AbstractConnection.OPEN) {
-          context.openConnections = context.openConnections.enqueue(item);
+          context.openList = context.openList.enqueue(item);
         }
 
-        context.waitingConnections = context.waitingConnections.shift(item);
+        context.waitingList = context.waitingList.shift(item);
 
         context.next();
       },
@@ -117,11 +117,11 @@ export default class ConnectionManager {
     const item = new ConnectionQueueItem(connection, priority);
 
     if (connection.state === AbstractConnection.INIT) {
-      this.waitingConnections = this.waitingConnections.enqueue(item);
+      this.waitingList = this.waitingList.enqueue(item);
     }
 
     if (connection.state === AbstractConnection.OPEN) {
-      this.openConnections = this.openConnections.enqueue(item);
+      this.openList = this.openList.enqueue(item);
     }
 
     connection.addListener(ConnectionEvent.ABORT, this.handleConnectionAbort);
@@ -148,8 +148,8 @@ export default class ConnectionManager {
   dequeue(connection) {
     const item = new ConnectionQueueItem(connection);
 
-    this.waitingConnections = this.waitingConnections.dequeue(item);
-    this.openConnections = this.openConnections.dequeue(item);
+    this.waitingList = this.waitingList.dequeue(item);
+    this.openList = this.openList.dequeue(item);
 
     connection.removeListener(
       ConnectionEvent.ABORT,

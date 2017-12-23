@@ -43,6 +43,17 @@ describe("ConnectionQueueItem", () => {
     });
   });
 
+  describe("#props", () => {
+    it("has correct connection", () => {
+      const connection = new AbstractConnection();
+      expect(new ConnectionQueueItem(connection).connection).toEqual(connection);
+    });
+    it("has correct priority", () => {
+      const connection = new AbstractConnection();
+      expect(new ConnectionQueueItem(connection, 5).priority).toEqual(5);
+    });
+  });
+
   describe("#equals", () => {
     it("compares items with same connections correctly", () => {
       const connection = new AbstractConnection();

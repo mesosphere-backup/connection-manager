@@ -1,6 +1,6 @@
 import { AbstractConnection } from "@dcos/connections";
 
-export const DEFAULT_PRIORITY = 0;
+export const DEFAULT_PRIORITY = 1;
 export const MINIMUM_PRIORITY = DEFAULT_PRIORITY;
 
 export default class ConnectionQueueItem {
@@ -17,9 +17,7 @@ export default class ConnectionQueueItem {
 
     if (!Number.isSafeInteger(priority) || priority < MINIMUM_PRIORITY) {
       throw new Error(
-        "Invalid Priority, has to be a number greater than " +
-          MINIMUM_PRIORITY +
-          "."
+        `Invalid Priority: ${priority}, has to be a number greater than ${MINIMUM_PRIORITY}.`
       );
     }
 
@@ -34,6 +32,12 @@ export default class ConnectionQueueItem {
      * @name ConnectionQueueItem#priority
      */
     Object.defineProperty(this, "priority", { value: priority });
+
+    /**
+     * @property {number}
+     * @name ConnectionQueueItem#created
+     */
+    Object.defineProperty(this, "created", { value: Date.now() });
   }
   /**
    * Checks if Connection in Item is the same

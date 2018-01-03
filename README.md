@@ -14,7 +14,7 @@ const connection = new XHRConnection("http://127.0.0.1");
 connection.on(ConnectionEvent.CLOSE, function(event) {
   // doing something with event.target.response
 });
-ConnectionManager.enqueue(connection);
+ConnectionManager.schedule(connection);
 ```
 
 Connection will be opened by the manager once there's a slot available.
@@ -34,5 +34,5 @@ const connection = new XHRConnection("http://127.0.0.1", {
 ## Creating your own connection type
 
 If you want to create your own connection type that will be compatible with the manager please extend `AbstractConnection`.
-Have a look at `Connections/AbstractConnection.js` for more info.
+Have a look at `@dcos/connections` for more info.
 

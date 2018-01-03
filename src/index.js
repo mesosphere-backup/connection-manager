@@ -1,3 +1,6 @@
-import { default as ConnectionManager } from "./ConnectionManager";
+import { default as CM } from "./ConnectionManager";
+export { default as ConnectionQueueItem } from "./ConnectionQueueItem";
 
-export default new ConnectionManager();
+export default new CM();
+
+export const ConnectionManager = CM;

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@dcos/connections@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@dcos/connections/-/connections-0.3.0.tgz#d8f696518fd2faf0b841ec60edf83f2d626d314e"
-  integrity sha512-svnk0TZnAKNMfrtC0Qrb31B06o0jS7YuUKytTR+pg8HAYLlJy6EUD1EjAeLbF7Zh4HRvMhXS7ER3LGMVYB39Pg==
+"@dcos/connections@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@dcos/connections/-/connections-0.4.0.tgz#89471c657e2b73184be3e1c4ebfc7eff55f44de9"
+  integrity sha512-Ldc1KpH8YnZdQueljQSB06lVp7fEWhThGkMLS/y9ecJLPklhCRWDOzhf3H43qpIgg8QBIoRTspzNMCWBa0dmcg==
 
 abab@^1.0.3:
   version "1.0.4"

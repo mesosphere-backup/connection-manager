@@ -20,10 +20,13 @@
     "babel-jest": "^21.2.0",
     "babel-preset-env": "^1.6.1",
     "jest": "^21.2.1",
-    "jest-cli": "^21.2.1"
+    "jest-cli": "^21.2.1",
+    "@dcos/connections": "^0.4.0"
   },
   "dependencies": {
-    "@dcos/connections": "0.4.0",
     "immutable": "^3.8.2"
+  },
+  "peerDependencies": {
+    "@dcos/connections": "^0.4.0"
   }
 }

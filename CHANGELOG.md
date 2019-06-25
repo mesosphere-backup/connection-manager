@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/dcos-labs/connection-manager/compare/v0.3.1...v0.4.0) (2019-06-25)
+
+
+### Bug Fixes
+
+* track connections as peer dependency ([6550eb3](https://github.com/dcos-labs/connection-manager/commit/6550eb3))
+
+
+### BREAKING CHANGES
+
+* The  `@dcos/connections` package is now tracked as peer dependency which requires an additional installation step. Run `npm install @dcos/connections dcos/connection-manager` or `yarn add @dcos/connections dcos/connection-manager` to install the connection manager and connections package.
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/dcos-labs/connection-manager/compare/v0.3.0...v0.3.1) (2019-06-13)
 
